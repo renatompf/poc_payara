@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  app:
+    container_name: app
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "8080"
+      - "4848"
+    ports:
+      - "8080:8080"
+      - "4848:4848"
+    depends_on:
+      - "postgres"
+
+  postgres:
+    container_name: postgres
+    image: postgres:10.4
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
